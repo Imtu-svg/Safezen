@@ -1,0 +1,310 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Safezen International Agency</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&family=Lato:wght@300;400&display=swap" rel="stylesheet"/>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: 'Poppins', sans-serif;
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: flex-start;
+      background: #0a0f1a;
+      margin: 0;
+      padding: 0;
+    }
+
+    .phone-wrapper {
+      width: 100%;
+      max-width: 420px;
+      min-height: 100vh;
+      background: #0d1b2a;
+      position: relative;
+      overflow: hidden;
+      padding-bottom: 40px;
+    }
+
+    /* Full-page blurred blob background */
+    .bg-image {
+      position: absolute;
+      top: 0; left: 0; right: 0; bottom: 0;
+      z-index: 0;
+      overflow: hidden;
+    }
+    .blob {
+      position: absolute;
+      border-radius: 50%;
+      filter: blur(80px);
+      opacity: 0.75;
+    }
+    .blob-1 {
+      width: 320px; height: 320px;
+      background: #1a9e5c;
+      top: -80px; left: -80px;
+    }
+    .blob-2 {
+      width: 280px; height: 280px;
+      background: #f57c00;
+      top: 60px; right: -60px;
+    }
+    .blob-3 {
+      width: 260px; height: 260px;
+      background: #1565c0;
+      top: 320px; left: -40px;
+    }
+    .blob-4 {
+      width: 300px; height: 300px;
+      background: #6a1b9a;
+      top: 480px; right: -80px;
+    }
+    .blob-5 {
+      width: 250px; height: 250px;
+      background: #00838f;
+      bottom: 80px; left: 30px;
+    }
+    .bg-overlay {
+      position: absolute;
+      inset: 0;
+      background: rgba(10, 20, 35, 0.45);
+    }
+
+    .content {
+      position: relative;
+      z-index: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 36px 20px 0;
+      gap: 0;
+    }
+
+    .logo {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 6px;
+  text-decoration: none;
+}
+.logo-img {
+  width: 160px;
+  height: auto;
+  object-fit: contain;
+}
+
+    .agency-name {
+      font-size: 19px;
+      font-weight: 700;
+      color: #ffffff;
+      text-align: center;
+      margin-bottom: 4px;
+    }
+
+    .tagline {
+      font-family: 'Lato', sans-serif;
+      font-size: 13px;
+      font-weight: 300;
+      color: rgba(255,255,255,0.75);
+      text-align: center;
+      margin-bottom: 22px;
+      letter-spacing: 0.2px;
+    }
+
+    /* Social icons row */
+    .socials {
+      display: flex;
+      gap: 14px;
+      margin-bottom: 28px;
+    }
+
+    .social-btn {
+      width: 52px;
+      height: 52px;
+      border-radius: 14px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-decoration: none;
+      transition: transform 0.18s ease, box-shadow 0.18s ease;
+      box-shadow: 0 3px 10px rgba(0,0,0,0.12);
+    }
+    .social-btn:hover {
+      transform: translateY(-3px) scale(1.07);
+      box-shadow: 0 8px 20px rgba(0,0,0,0.18);
+    }
+    .social-btn svg { width: 26px; height: 26px; }
+
+    .btn-youtube  { background: #fff; }
+    .btn-wechat   { background: #fff; }
+    .btn-whatsapp { background: #fff; }
+    .btn-facebook { background: #fff; }
+
+    /* Person cards */
+    .cards {
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      margin-bottom: 12px;
+    }
+
+    .card {
+      display: block;
+      width: 100%;
+      background: rgba(255,255,255,0.12);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border-radius: 16px;
+      padding: 16px 22px;
+      text-decoration: none;
+      text-align: center;
+      border: 1px solid rgba(255,255,255,0.25);
+      box-shadow: 0 4px 20px rgba(0,0,0,0.3);
+      transition: transform 0.18s ease, box-shadow 0.18s ease, background 0.18s ease;
+    }
+    .card:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 30px rgba(0,0,0,0.4);
+      background: rgba(255,255,255,0.2);
+    }
+
+    .card-name {
+      font-size: 15px;
+      font-weight: 700;
+      color: #ffffff;
+      margin-bottom: 3px;
+    }
+    .card-title {
+      font-size: 13px;
+      font-weight: 400;
+      color: rgba(255,255,255,0.7);
+    }
+
+    /* Contact Us card */
+    .contact-card {
+      display: block;
+      width: 100%;
+      background: rgba(255,255,255,0.12);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border-radius: 16px;
+      padding: 14px 22px;
+      text-decoration: none;
+      text-align: center;
+      border: 1px solid rgba(255,255,255,0.25);
+      box-shadow: 0 4px 20px rgba(0,0,0,0.3);
+      margin-bottom: 16px;
+      transition: transform 0.18s ease, box-shadow 0.18s ease;
+    }
+    .contact-card:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 30px rgba(0,0,0,0.4);
+      background: rgba(255,255,255,0.2);
+    }
+    .contact-label {
+      font-size: 14px;
+      font-weight: 500;
+      color: rgba(255,255,255,0.9);
+    }
+
+    /* Address */
+    .address {
+      width: 100%;
+      background: rgba(255,255,255,0.08);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border-radius: 16px;
+      padding: 14px 22px;
+      text-align: center;
+      font-family: 'Lato', sans-serif;
+      font-size: 13.5px;
+      line-height: 1.7;
+      color: rgba(255,255,255,0.75);
+      border: 1px solid rgba(255,255,255,0.15);
+    }
+	/* Extra mobile optimization */
+    @media (max-width: 420px) {
+      .phone-wrapper {
+        max-width: 100%;
+        border-radius: 0;
+        box-shadow: none;
+      }
+  </style>
+</head>
+<body>
+<div class="phone-wrapper">
+  <div class="bg-image">
+    <div class="blob blob-1"></div>
+    <div class="blob blob-2"></div>
+    <div class="blob blob-3"></div>
+    <div class="blob blob-4"></div>
+    <div class="blob blob-5"></div>
+    <div class="bg-overlay"></div>
+  </div>
+  <div class="content">
+
+   <!-- Logo -->
+<a href="plane.html" target="_blank" class="logo">
+  <img src="logo.png" alt="Safezen Logo" class="logo-img" />
+</a>
+
+    <h1 class="agency-name">Safezen International Agency</h1>
+    <p class="tagline">Your Trust is our key to move forward</p>
+
+    <!-- Social Icons -->
+    <div class="socials">
+      <!-- YouTube -->
+      <a href="https://www.youtube.com/@safezeninternationalagency4526" target="_blank" class="social-btn btn-youtube" title="YouTube">
+        <svg viewBox="0 0 24 24" fill="#FF0000"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>
+      </a>
+      <!-- WeChat -->
+      <a href="tel:+8801340915283" class="social-btn btn-wechat" title="Call Us">
+        <svg viewBox="0 0 24 24" fill="#07C160"><path d="M8.691 2.188C3.891 2.188 0 5.476 0 9.53c0 2.212 1.17 4.203 3.002 5.55a.59.59 0 0 1 .213.665l-.39 1.48c-.019.07-.048.141-.048.213 0 .163.13.295.295.295a.326.326 0 0 0 .167-.054l1.903-1.114a.864.864 0 0 1 .717-.098 10.16 10.16 0 0 0 2.837.403c.276 0 .543-.027.811-.05-.857-2.578.157-4.972 1.932-6.446 1.703-1.415 3.882-1.98 5.853-1.838-.576-3.583-4.196-6.348-8.601-6.348zM5.785 5.991c.642 0 1.162.529 1.162 1.18a1.17 1.17 0 0 1-1.162 1.178A1.17 1.17 0 0 1 4.623 7.17c0-.651.52-1.18 1.162-1.18zm5.813 0c.642 0 1.162.529 1.162 1.18a1.17 1.17 0 0 1-1.162 1.178 1.17 1.17 0 0 1-1.162-1.178c0-.651.52-1.18 1.162-1.18zm5.34 2.867c-1.797-.052-3.746.512-5.28 1.786-1.72 1.428-2.687 3.72-1.78 6.22.942 2.453 3.666 4.229 6.884 4.229.826 0 1.622-.12 2.361-.336a.722.722 0 0 1 .598.082l1.584.926a.272.272 0 0 0 .14.047c.134 0 .246-.11.246-.246 0-.06-.023-.12-.038-.177l-.327-1.233a.582.582 0 0 1 .023-.397 1.587.587 0 0 1 0 0c0-.001 0 0 0 0 1.297-1.167 2.099-2.811 2.099-4.7 0-3.499-3.101-6.201-6.51-6.201zm-2.532 3.158c.535 0 .969.44.969.983a.976.976 0 0 1-.969.983.976.976 0 0 1-.969-.983c0-.543.433-.983.969-.983zm5.061 0c.535 0 .969.44.969.983a.976.976 0 0 1-.969.983.976.976 0 0 1-.969-.983c0-.543.433-.983.969-.983z"/></svg>
+      </a>
+      <!-- WhatsApp -->
+      <a href="https://wa.link/za13xn" target="_blank" class="social-btn btn-whatsapp" title="WhatsApp">
+        <svg viewBox="0 0 24 24" fill="#25D366"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 0 1-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 0 1 2.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0 0 12.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 0 0 5.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 0 0-3.48-8.413z"/></svg>
+      </a>
+      <!-- Facebook -->
+      <a href="https://www.facebook.com/rafiqbhuiyan93941618
+	  " target="_blank" class="social-btn btn-facebook" title="Facebook">
+        <svg viewBox="0 0 24 24" fill="#1877F2"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
+      </a>
+    </div>
+
+    <!-- Person Cards -->
+    <div class="cards">
+      <a href="https://wa.link/a6suck" class="card">
+        <div class="card-name">Rafiq Bhuiyan</div>
+        <div class="card-title">MD, Safezen</div>
+      </a>
+      <a href="https://wa.link/d6rtsa" class="card">
+        <div class="card-name">Faruk Ahmed Faraby</div>
+        <div class="card-title">Manager, Safezen</div>
+      </a>
+      <a href="https://wa.link/srpdq1" class="card">
+        <div class="card-name">Jahangir Hossain Imtu</div>
+        <div class="card-title">Computer Operator cum Receptionist</div>
+      </a>
+    </div>
+
+    <!-- Contact Us -->
+<a href="mailto:safezenbd@gmail.com" class="contact-card">
+      <div class="contact-label">Contact Us</div>
+    </a>
+</br>
+
+    <!-- Address -->
+	 <a href="https://maps.app.goo.gl/dt44WS6ifHPiFERY8" class="card">
+        <div class="card-name">হাউজ #০৮ (৭ম তলা)(ওয়ালটন শোরুম বিল্ডিং)
+      ব্লক #এফ, মেইন রোড, রামপুরা-বনশ্রী, ঢাকা-১২১৯</div>
+      </a>
+
+  </div>
+</div>
+</body>
+</html>

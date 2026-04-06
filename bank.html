@@ -1,0 +1,381 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title> Bank details </title>
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+
+<style>
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:'Poppins',sans-serif;
+}
+
+body{
+    min-height:100vh;
+    padding:40px 20px;
+    background: linear-gradient(-45deg,#1d2b64,#f8cdda,#00c9ff,#92fe9d);
+    background-size:400% 400%;
+    animation:gradientMove 12s ease infinite;
+}
+
+@keyframes gradientMove{
+    0%{background-position:0% 50%;}
+    50%{background-position:100% 50%;}
+    100%{background-position:0% 50%;}
+}
+
+.container{
+    max-width:1000px;
+    margin:auto;
+}
+
+.main-title{
+    text-align:center;
+    font-size:42px;
+    font-weight:700;
+    color:#fff;
+    margin-bottom:50px;
+    letter-spacing:2px;
+    text-shadow:0 5px 20px rgba(0,0,0,0.4);
+}
+
+/* CARD DESIGN */
+.card{
+    background:rgba(255,255,255,0.15);
+    backdrop-filter:blur(15px);
+    border-radius:20px;
+    padding:30px;
+    margin-bottom:30px;
+    color:#fff;
+    position:relative;
+    transition:0.4s;
+    overflow:hidden;
+}
+
+.card::before{
+    content:"";
+    position:absolute;
+    top:-50%;
+    left:-50%;
+    width:200%;
+    height:200%;
+    background:radial-gradient(circle,rgba(255,255,255,0.2),transparent 60%);
+    transform:rotate(0deg);
+    transition:0.5s;
+}
+
+.card:hover{
+    transform:translateY(-10px) scale(1.02);
+    box-shadow:0 20px 40px rgba(0,0,0,0.3);
+}
+
+.card:hover::before{
+    transform:rotate(180deg);
+}
+
+/* CENTERED BANK NAME */
+.card h3{
+    text-align:center;
+    font-size:22px;
+    font-weight:700;
+    margin-bottom:20px;
+    letter-spacing:1px;
+}
+
+/* FIELD STYLE */
+.field{
+    margin:10px 0;
+    font-size:15px;
+}
+
+.field strong{
+    font-weight:600;
+}
+
+/* ACCOUNT ROW */
+.acc-row{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    flex-wrap:wrap;
+}
+
+button{
+    padding:8px 18px;
+    border:none;
+    border-radius:30px;
+    background: linear-gradient(45deg,#00f260,#0575e6); /* pink → purple */
+    color:white;
+    font-weight:600;
+    cursor:pointer;
+    transition:0.3s;
+    position:relative;
+    overflow:hidden;
+}
+
+button:hover{
+    transform:scale(1.08);
+    box-shadow:0 8px 20px rgba(0,0,0,0.4);
+}
+
+/* Copied Effect */
+button.copied{
+    background: linear-gradient(45deg,#00b09b,#96c93d); /* green gradient */
+}
+
+/* TOAST */
+.toast{
+    position:fixed;
+    bottom:30px;
+    right:30px;
+    background:#000;
+    color:#fff;
+    padding:15px 25px;
+    border-radius:30px;
+    opacity:0;
+    transform:translateY(20px);
+    transition:0.4s;
+    box-shadow:0 10px 30px rgba(0,0,0,0.4);
+}
+
+.toast.show{
+    opacity:1;
+    transform:translateY(0);
+}
+
+/* MOBILE */
+@media(max-width:600px){
+    .acc-row{
+        flex-direction:column;
+        align-items:flex-start;
+    }
+    button{
+        margin-top:10px;
+    }
+}
+.logo-area{
+    text-align:center;
+    margin-bottom:20px;
+}
+
+.logo-area img{
+    width:220px;
+    height:auto;
+    border-radius:15px;
+    transition:0.4s;
+}
+
+.logo-area img:hover{
+    transform:scale(1.1) rotate(3deg);
+    filter:drop-shadow(0 10px 20px rgba(0,0,0,0.4));
+}/* LOCATION BAR */
+.location-wrapper{
+    position: fixed;
+    bottom: 45px; /* above ticker */
+    left: 50%;
+    transform: translateX(-50%);
+    display: inline-block;
+    padding: 10px 20px;
+    z-index: 9999;
+    border-radius: 25px;
+    cursor: pointer;
+    transition: 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+    background: rgba(0,0,0,0.6);
+    text-decoration: none !important;
+    color:#fff !important;
+}
+.location-wrapper:hover{
+    background: rgba(0,0,0,0.9);
+    box-shadow: 0 0 15px #00f9ff, 0 0 25px #00f9ff inset;
+    transform: translateX(-50%) scale(1.05);
+    color:#00f9ff !important;
+}
+
+/* FIXED BOTTOM TICKER */
+.ticker-wrapper{
+    position:fixed !important;
+    bottom:0 !important;
+    left:0;
+    width:100%;
+    height:45px;
+    background:linear-gradient(90deg,#000,#1a1a1a,#000);
+    display:flex;
+    align-items:center;
+    overflow:hidden;
+    z-index:999999;
+}
+
+.ticker{
+    white-space:nowrap;
+    color:#fff;
+    font-size:15px;
+    font-weight:500;
+    padding-left:100%;
+    animation:scrollLeft 38s linear infinite;
+}
+
+@keyframes scrollLeft{
+    from { transform:translateX(0); }
+    to { transform:translateX(-100%); }
+}
+.home-btn {
+  position: fixed;
+  top: 20px;
+  left: 20px;
+  width: 55px;
+  height: 55px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  text-decoration: none;
+  font-size: 24px;
+  background: linear-gradient(45deg,#0ff,#f0f,#ff0,#f0f);
+  background-size: 400% 400%;
+  animation: buttonNeon 6s linear infinite;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  z-index: 1000;
+}
+
+/* Hover Effect */
+.home-btn:hover {
+  transform: translateY(-5px) scale(1.15);
+  box-shadow: 
+    0 0 10px #0ff,
+    0 0 20px #f0f,
+    0 0 40px #ff0;
+}
+</style>
+</head>
+
+<body>
+<!-- Home button -->
+<a href="index.html" class="home-btn"> 🏠 </a>
+<div class="container">
+<div class="logo-area">
+    <img src="logo.png" alt="Company Logo">
+</div>
+
+<h3><div class="main-title">Bank details</div></h3>
+
+<!-- BANK TEMPLATE -->
+<div class="card">
+    <h3>BRAC BANK PLC</h3>
+    <div class="field"><strong>Account Name:</strong> EDUSAFE </div>
+    <div class="field acc-row">
+        <div><strong>Account Number:</strong> <span id="acc1">1549205088314001</span></div>
+        <button onclick="copyText('acc1',this)">Copy</button>
+    </div>
+    <div class="field"><strong>Branch:</strong> Banasree, Rampura, Dhaka </div>
+    <div class="field"><strong>Routing Number:</strong> 060260727 </div>
+</div>
+
+<div class="card">
+    <h3> CITY BANK PLC </h3>
+    <div class="field"><strong>Account Name:</strong> EDUSAFE </div>
+    <div class="field acc-row">
+        <div><strong>Account Number:</strong> <span id="acc2">1502538807001</span></div>
+        <button onclick="copyText('acc2',this)">Copy</button>
+    </div>
+    <div class="field"><strong>Branch:</strong> Banani, Dhaka </div>
+    <div class="field"><strong>Routing Number:</strong> 225260438 </div>
+</div>
+
+<div class="card">
+    <h3> DUTCH BANGLA BANK PLC </h3>
+    <div class="field"><strong>Account Name:</strong> MD RAFIQUL ISLAM </div>
+    <div class="field acc-row">
+        <div><strong>Account Number:</strong> <span id="acc3">3031570429467</span></div>
+        <button onclick="copyText('acc3',this)">Copy</button>
+    </div>
+    <div class="field"><strong>Branch:</strong> Banasree, Rampura, Dhaka </div>
+    <div class="field"><strong>Routing Number:</strong> 090270590 </div>
+</div>
+
+<div class="card">
+    <h3>UTTARA BANK PLC</h3>
+    <div class="field"><strong>Account Name:</strong> MD RAFIQUL ISLAM </div>
+    <div class="field acc-row">
+        <div><strong>Account Number:</strong> <span id="acc4"> 157811100115716 </span></div>
+        <button onclick="copyText('acc4',this)">Copy</button>
+    </div>
+    <div class="field"><strong>Branch:</strong> Hotel Ishakha international </div>
+    <div class="field"><strong>Routing Number:</strong> 250272712 </div>
+</div>
+
+<div class="card">
+    <h3>ISLAMI BANK BD PLC</h3>
+    <div class="field"><strong>Account Name:</strong> EDUSAFE </div>
+    <div class="field acc-row">
+        <div><strong>Account Number:</strong> <span id="acc5">20507370100028216</span></div>
+        <button onclick="copyText('acc5',this)">Copy</button>
+    </div>
+    <div class="field"><strong>Branch:</strong> Banasree Branch </div>
+    <div class="field"><strong>Routing Number:</strong> 125270599 </div>
+</div>
+
+</div>
+
+<div id="toast" class="toast">Copied Successfully!</div>
+
+
+</br>
+</br>
+</br>
+
+<!-- LOCATION -->
+ <a href="https://maps.app.goo.gl/dt44WS6ifHPiFERY8" target="_blank" class="location-wrapper">
+    📍 Our Location </div>
+</a>
+<script>
+function copyText(id,btn){
+    var text=document.getElementById(id).innerText;
+
+    var textarea=document.createElement("textarea");
+    textarea.value=text;
+    document.body.appendChild(textarea);
+    textarea.select();
+    document.execCommand("copy");
+    document.body.removeChild(textarea);
+
+    btn.innerText="Copied ✓";
+    btn.classList.add("copied");
+
+    setTimeout(()=>{
+        btn.innerText="Copy";
+        btn.classList.remove("copied");
+    },2000);
+
+    showToast();
+}
+function showToast(){
+    var toast=document.getElementById("toast");
+    toast.classList.add("show");
+    setTimeout(()=>{
+        toast.classList.remove("show");
+    },2000);
+
+}
+</script>
+ 
+
+<div class="ticker-wrapper">
+    <div class="ticker">
+        🌟 Welcome to Safezen international agency • We Belive in Trust 💙
+        Thank You For Visiting 💙 • 
+        Feel Free To Contact 🔐 • 
+        Have A Wonderful Day With Safezen 🌟
+		LOCATION : House #08 (7th Floor), Block #F, Main Road,Cosmo School Building, Rampura-Banasree,Dhaka-1219
+
+হাউজ #০৮ (৭ম তলা), ব্লক #এফ, মেইন রোড,কসমো স্কুল বিল্ডিং, রামপুরা-বনশ্রী, ঢাকা-১২১৯
+		
+    </div>
+</div>
+
+</body>
+</html>
